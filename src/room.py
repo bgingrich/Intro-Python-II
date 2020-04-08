@@ -3,7 +3,7 @@
 
 from player import Player
 class Room:
-    def __init__(self, name, description, n_to, s_to, e_to, w_to, items=[]):
+    def __init__(self, name, description, items=[]):
         self.name = name
         self.description = description
         self.n_to = None

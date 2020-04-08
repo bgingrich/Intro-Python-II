@@ -15,15 +15,15 @@ class Player:
             self.current_room = current_room
             print(f"You have entered the {current_room}.\n")
             print(current_room.description + "\n")
-            else:
-                print("Wrong way\n")
-            def add_item(self, item):
-                self.inventory.append(item)
-                print(f'{item} now belongs to you')
-            def item_inventory(self):
-                if len(self.inventory) == 0:
-                    print('You have no items in your inventory')
-                else:
-                    print("Your Inventory")
-                    for item in self.inventory:
-                        print(f'{item.name} {item.description}')
+        else:
+            print("Wrong way\n")
+    def add_item(self, item):
+        self.inventory.append(item)
+        print(f'{item} now belongs to you')
+    def item_inventory(self):
+        if len(self.inventory) == 0:
+            print('You have no items in your inventory')
+        else:
+            print("Your Inventory")
+            for item in self.inventory:
+                print(f'{item.name} {item.description}')
