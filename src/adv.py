@@ -38,19 +38,16 @@ room['treasure'].s_to = room['narrow']
 
 # Create items -- initialize
 
-maps = Item("Maps", "To give you clues")
-pencil = Item("Pencil", "To write down clues")
-telescope = Item("Telescope", "To look out")
-compass = Item("Compass", "To find your way")
-light = Item("Light", "To help you see")
-lantern = Item("Lantern", "To provide more light")
-chest = Item("Chest", "Once held the treasure")
-note = Item("Note", "Left by the treasure finder")
+maps = Item("maps", "To give you clues")
+telescope = Item("telescope", "To look out")
+compass = Item("compass", "To find your way")
+lantern = Item("lantern", "To provide some light")
+chest = Item("chest", "Once held the treasure")
 
-room['foyer'].addItems(maps, pencil)
+room['foyer'].addItems(maps, telescope)
 room['overlook'].addItems(telescope, compass)
-room['narrow'].addItems(light, lantern)
-room['treasure'].addItems(chest, note)
+room['narrow'].addItems(lantern, maps)
+room['treasure'].addItems(chest, maps)
 
 #
 # Main
@@ -64,7 +61,7 @@ player = Player(username, room['outside'])
 while True:
     player.displayRoom()
 
-    user = input("[n] North\t[s] South\t[e] East\t[w] West\n[i] Inventory\n[take item]\t [drop item]\n[q] Quit\n Enter Direction: ").lower()
+    user = input("[n] North\t[s] South\t[e] East\t[w] West\n[i] Inventory\n[take item]\t [drop item]\n[q] Quit\n Input: ").lower()
 
     inputs = user.split()
 
@@ -72,7 +69,6 @@ while True:
 
 # * Waits for user input and decides what to do.
 # If the user enters "q", quit the game.
-
     if len(inputs) == 1:
         if inputs[0] == 'q':
             break
@@ -81,6 +77,7 @@ while True:
             player.moveTo(inputs[0])
         elif inputs[0] == 'i':
             player.displayInventory()
+
     elif len(inputs) == 2:
         if inputs[0] == "get" or inputs[0] == "take":
             player.addItem(inputs[1])
@@ -88,9 +85,9 @@ while True:
             player.dropItem(inputs[1])
     # Print an error message if the movement isn't allowed.
     else:
-        print('Command not valid')
+        print('Command not valid.')
 
-    print("\n")
+    print("\n\n\n")
 
 
 

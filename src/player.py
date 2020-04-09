@@ -1,6 +1,3 @@
-# Write a class to hold player information, e.g. what room they are in
-# currently.
-
 class Player:
     def __init__(self, name, room):
         self.name = name
@@ -60,11 +57,11 @@ class Player:
 
     def dropItem(self, item):
         exists = False
-        for inventoryItem in self.items:
-            if item == inventoryItem.name:
-                self.items.remove(inventoryItem)
-                inventoryItem.onDrop()
-                self.current_room.addItems(inventoryItem)
+        for invenItem in self.items:
+            if item == invenItem.name:
+                self.items.remove(invenItem)
+                invenItem.onDrop()
+                self.current_room.addItems(invenItem)
                 exists = True
                 break
         if not exists:
