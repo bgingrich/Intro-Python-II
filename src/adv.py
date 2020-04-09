@@ -35,6 +35,23 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+# Create items -- initialize
+
+maps = Item("Maps", "To give you clues")
+pencil = Item("Pencil", "To write down clues")
+telescope = Item("Telescope", "To look out")
+compass = Item("Compass", "To find your way")
+light = Item("Light", "To help you see")
+lantern = Item("Lantern", "To provide more light")
+chest = Item("Chest", "Once held the treasure")
+note = Item("Note", "Left by the treasure finder")
+
+room['foyer'].addItems(maps, pencil)
+room['overlook'].addItems(telescope, compass)
+room['narrow'].addItems(light, lantern)
+room['treasure'].addItems(chest, note)
+
 #
 # Main
 #
@@ -45,49 +62,36 @@ player = Player(username, room['outside'])
 
 # Write a loop that:
 while True:
+    player.displayRoom()
 
-    print("##################################################################")
+    user = input("[n] North\t[s] South\t[e] East\t[w] West\n[i] Inventory\n[take item]\t [drop item]\n[q] Quit\n Enter Direction: ").lower()
 
-# * Prints the current room name
-    print(f'Current Room: {player.room.name}')
+    inputs = user.split()
 
-# * Prints the current description (the textwrap module might be useful here).
-    print("##################################################################")
-    print(f"# {player.room.description}")
-    print("##################################################################\n")
+    directions = ('n', 's', 'e', 'w')
 
 # * Waits for user input and decides what to do.
-    user = input("[n] North  [s] South  [e] East  [w] West    [q] Quit:\n").lower()
-
 # If the user enters "q", quit the game.
-    if user == 'q':
-        break
 
-# If the user enters a cardinal direction, attempt to move to the room there.
-    elif user == 'n':
-        if player.room.n_to != None:
-            player.room = player.room.n_to
-        else:
-            print("Can't go to the North...")
-    elif user == 's':
-        if player.room.s_to != None:
-            player.room = player.room.s_to
-        else:
-            print("Can't go to the South...")
-    elif user == 'e':
-        if player.room.e_to != None:
-            player.room = player.room.e_to
-        else:
-            print("Can't go to the East...")
-    elif user == 'w':
-        if player.room.w_to != None:
-            player.room = player.room.w_to
-        else:
-            print("Can't go to the West...")
-
-# Print an error message if the movement isn't allowed.
+    if len(inputs) == 1:
+        if inputs[0] == 'q':
+            break
+    # If the user enters a cardinal direction, attempt to move to the room there.
+        elif inputs[0] in directions:
+            player.moveTo(inputs[0])
+        elif inputs[0] == 'i':
+            player.displayInventory()
+    elif len(inputs) == 2:
+        if inputs[0] == "get" or inputs[0] == "take":
+            player.addItem(inputs[1])
+        elif inputs[0] == "drop":
+            player.dropItem(inputs[1])
+    # Print an error message if the movement isn't allowed.
     else:
         print('Command not valid')
+
+    print("\n")
+
 
 
 
